@@ -1,0 +1,42 @@
+Repo
+  { repoSshUrl = "git@github.com:badarils/msup_demo.git"
+  , repoDescription = Just "Created for test purpose"
+  , repoCreatedAt = GithubDate
+                      { fromGithubDate = 2015-12-0312:30:12 UTC
+                      }
+  , repoHtmlUrl = "https://github.com/badarils/msup_demo"
+  , repoSvnUrl = "https://github.com/badarils/msup_demo"
+  , repoForks = 0
+  , repoHomepage = Nothing
+  , repoFork = False
+  , repoGitUrl = "git://github.com/badarils/msup_demo.git"
+  , repoPrivate = False
+  , repoCloneUrl = "https://github.com/badarils/msup_demo.git"
+  , repoSize = 11
+  , repoUpdatedAt = GithubDate
+                      { fromGithubDate = 2015-12-0312:45:20 UTC
+                      }
+  , repoWatchers = 0
+  , repoOwner = GithubUser
+                  { githubOwnerAvatarUrl = "https://avatars.githubusercontent.com/u/16134621?v=3"
+                  , githubOwnerLogin = "badarils"
+                  , githubOwnerUrl = "https://api.github.com/users/badarils"
+                  , githubOwnerId = 16134621
+                  , githubOwnerGravatarId = Just ""
+                  }
+  , repoName = "msup_demo"
+  , repoLanguage = Just "HTML"
+  , repoMasterBranch = Nothing
+  , repoPushedAt = Just
+                     GithubDate
+                       { fromGithubDate = 2015-12-1006:19:48 UTC
+                       }
+  , repoId = 47330741
+  , repoUrl = "https://api.github.com/repos/badarils/msup_demo"
+  , repoOpenIssues = 0
+  , repoHasWiki = Just True
+  , repoHasIssues = Just True
+  , repoHasDownloads = Just True
+  , repoParent = Nothing
+  , repoSource = Nothing
+  }
