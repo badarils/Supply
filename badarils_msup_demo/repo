@@ -12,7 +12,7 @@ Repo
   , repoGitUrl = "git://github.com/badarils/msup_demo.git"
   , repoPrivate = False
   , repoCloneUrl = "https://github.com/badarils/msup_demo.git"
-  , repoSize = 24
+  , repoSize = 11
   , repoUpdatedAt = GithubDate
                       { fromGithubDate = 2015-12-0312:45:20 UTC
                       }
@@ -29,7 +29,7 @@ Repo
   , repoMasterBranch = Nothing
   , repoPushedAt = Just
                      GithubDate
-                       { fromGithubDate = 2015-12-1105:53:53 UTC
+                       { fromGithubDate = 2015-12-1006:19:48 UTC
                        }
   , repoId = 47330741
   , repoUrl = "https://api.github.com/repos/badarils/msup_demo"
