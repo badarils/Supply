@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Supplier</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="error_msg">Something went wrong!</string>
+
+
+    <!-- ERROR MESSAGES -->
+    <string name="error_hero_api">Hero not available. Hero may not be registered.</string>
+    <string name="error_no_internet_connection">No Connection, Please check your internet</string>
+    <string name="error_no_network">Network error, Please check your internet</string>
+  <string name="error_no_auth_key"
+      translatable="false">no_token</string>
+    <string name="error_no_auth">Your Session has expired. Please try Again.</string>
+    <string name="error_server">Server Error</string>
+    <string name="error_parser">Parse Error</string>
+    <string name="error_timeout">Timeout Error</string>
+    <string name="error_no_auth_response">No Auth Response from Server</string>
+    <string name="error_unknown">Unknown Error</string>
+</resources>

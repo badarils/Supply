@@ -1,0 +1,82 @@
+apply plugin: 'com.android.application'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+def versionMajor = 1
+def versionMinor = 2
+def buildNumber = "1"
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+
+    defaultConfig {
+        applicationId "mobileapp.msupply.com.supplier"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    dexOptions {
+        jumboMode = true
+        javaMaxHeapSize "4g"
+    }
+    signingConfigs {
+        release {
+            storeFile file("msupply-supplier-keystore.jks")
+            storePassword "MSupply123"
+            keyAlias "MSupplySupplierKeystore"
+            keyPassword "Supplier123"
+        }
+        /*debug {
+            storeFile file("debug.keystore")
+            storePassword "android"
+        }*/
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles 'proguard-android.txt', 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        /*debug {
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+            versionNameSuffix "-debug"
+        }*/
+        preRelease {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles 'proguard-android.txt', 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            versionNameSuffix "-prerelease"
+        }
+    }
+    productFlavors {
+        stage {
+            applicationId "com.msupply.mobileApp.stage"
+            versionName "${versionMajor}.${versionMinor}.${buildNumber}-stage"
+        }
+
+        prod {
+            versionName "${versionMajor}.${versionMinor}.${buildNumber}"
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
+    compile 'com.google.android.gms:play-services-gcm:7.5.0'
+    compile 'com.google.android.gms:play-services-analytics:7.5.0'
+    compile 'com.mcxiaoke.volley:library:1.0.19'
+    compile 'com.google.code.gson:gson:2.4'
+    //compile 'com.jakewharton:butterknife:6.0.0'
+    compile 'javax.inject:javax.inject:1@jar'
+    compile 'org.projectlombok:lombok:1.12.2'
+}
