@@ -1,0 +1,71 @@
+<ul class="nav nav-tabs cpaymenttab" role="tablist">
+    <li role="presentation"><a href="#Address" aria-controls="home" role="tab" data-toggle="tab2">Billing Address</a></li>
+	<li role="presentation"><a href="#Address" aria-controls="home" role="tab" data-toggle="tab2">Shipping Address</a></li>
+    <li role="presentation"><a href="#Payment" aria-controls="messages" role="tab" data-toggle="tab2">Payment</a></li>
+    <li role="presentation" class="active"><a href="#Complete" aria-controls="settings" role="tab" data-toggle="tab2">Complete</a></li>
+</ul>
+<?php echo $this->getChildHtml('items_before'); ?>
+<div role="tabpanel" class="tab-pane" id="Confirm">
+	<div class="col-lg-8 col-md-6 col-sm-12 col-xs-12 mt20">
+	<div class="confirm">
+		<h2>confirm</h2>
+		<fieldset>
+                <table class="data-table cart-table bdtable">
+                    <thead class="bdtop">
+
+                    <tr>
+                        <th rowspan="1" class="hidden-mobile"> <span class="nobr theadtxt">Item</span></th>
+                        <th rowspan="1"><span class="nobr theadtxt">Product Name</span></th>
+                        <th rowspan="1"><span class="nobr theadtxt">Qty</span></th>
+                        <th colspan="1"><span class="nobr theadtxt">Unit Price</span></th>
+                        <th colspan="1"><span class="nobr theadtxt">Total</span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($this->getItems() as $_item): ?>
+                        <?php echo $this->getItemHtml($_item)?>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </fieldset>	
+	</div>
+	</div>
+	
+	<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 mt20">
+                    <div class="order_summary ">
+                        <h2 style="margin-top:20px !important;">Order Summary</h2>
+						
+                        <ul>
+						<?php echo $this->getChildHtml('totals'); ?>
+                            <!-- <li>Item Total<span>₹ 57,995.00</span></li>
+                            <li>Item Total<span>₹ 57,995.00</span></li> -->
+                        </ul>
+                        <!-- <p>Total Item<span>₹ 57,995.00</span></p> -->
+                    </div>
+
+                </div>
+				
+</div>
+
+<?php echo $this->getChildHtml('items_after'); ?>
+<script type="text/javascript">
+//<![CDATA[
+    decorateTable('checkout-review-table');
+    truncateOptions();
+//]]>
+</script>
+<div id="checkout-review-submit">
+    <?php echo $this->getChildHtml('agreements') ?>
+    <div class="buttons-set" id="review-buttons-container">
+        <!-- <p class="f-left"><?php //echo $this->__('Forgot an Item?') ?> <a href="<?php //echo $this->getUrl('checkout/cart') ?>"><?php //echo $this->__('Edit Your Cart') ?></a></p> -->
+        <?php echo $this->getChildHtml('button') ?>
+        <span class="please-wait" id="review-please-wait" style="display:none;">
+            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Submitting order information...') ?>" title="<?php echo $this->__('Submitting order information...') ?>" class="v-middle" /> <?php echo $this->__('Submitting order information...') ?>
+        </span>
+    </div>
+    <script type="text/javascript">
+    //<![CDATA[
+        review = new Review('<?php echo $this->getUrl('checkout/onepage/saveOrder', array('form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>', '<?php echo $this->getUrl('checkout/onepage/success') ?>', $('checkout-agreements'));
+    //]]>
+    </script>
+</div>

@@ -1,0 +1,47 @@
+<div class="categoryfaq">
+<div class="block-title"><span>FAQ</span></div>
+<?php $product = Mage::registry('current_product');
+    if ($product->getId()) 
+        $categoryIds = $product->getCategoryIds();
+		$catID = $categoryIds[0];
+		//print_r($categoryIds);
+$length = Mage::getResourceModel('catalog/category')->getAttributeRawValue($catID, "faq", Mage::app()->getStore()->getId());
+		?>
+<div class="sm-basic-products">
+<p><?php 
+                        $productName = $this->htmlEscape($length);
+                        $pnameLength = strlen($productName);
+                        if ($pnameLength > 300) {
+                            $productName = substr($this->htmlEscape($length), 0, 300) . '<a href="#" class="" data-toggle="modal" data-target="#myModal">Read More</a>';
+                        } else {
+                            $productName = $productName;
+                        }
+echo $productName;
+                       
+?></p>
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+</div>
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+

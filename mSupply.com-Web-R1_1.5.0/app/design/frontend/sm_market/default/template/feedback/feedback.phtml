@@ -1,0 +1,158 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<div class="container">
+    <div class="row">
+        <div class="left_panel">
+            <h2 class="fdbacktxt">Feedback</h2>
+            <p class="mb25">Question? Feedback? Drop us a message! Just fill out the form below, and we'll get back to you shortly. You can also check our Help Center section for quick answers to frequently asked questions.</p>
+            <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6">
+			
+			<form action="<?php echo $this->getUrl('feedback/index/save'); ?>" id="feedForm" name="feedForm" type="post" >
+			
+                <div class="feedback-qtn">How can we help?</div>
+                <div class="feedback-field">
+                        <select class="input-text required-entry mb25 font12 validate-select" name="help" id="help">
+						<option value="">Please choose one</option>
+						<option value="About My Order">About My Order</option>
+						<option value="My Website Experience">My Website Experience</option>
+						<option value="Shopping assistance">Shopping assistance</option>
+						<option value="More about mSupply">More about mSupply</option>
+						</select> 
+                </div>
+                <div class="feedback-qtn">Tell us more about your feedback or inquiry</div>
+                <div class="feedback-field">
+                        <textarea class="input-text required-entry ctxtar font12 required-entry" placeholder=" * Type your comment here"  cols="10" rows="5" name="comment" id="comment"></textarea> 
+                        <p class="mb25 charlength">* 1000 characters remaining</p>
+                </div>
+                <div class="feedback-qtn mb25">
+                   <div class="fqtn1"> Did you accomplish what you wanted to do on this page?</div>
+                    <div class="fqtn2">
+                     <span><input type="radio" name="accomplish" class="fradio" value=""/ id="acc_yes">Yes</span>
+                     <span><input type="radio" name="accomplish" class="fradio" value="" id="acc_no"/>No</span>
+					 <input type="hidden" name="accomplish_want" id="accomplish_want" value="" />
+                    </div>
+                </div>
+                <div class="feedback-qtn mb25">
+                    <div class="fqtn1">Would you recommend this site to a friend?</div>
+                    <div class="fqtn2">
+                         <span><input type="radio" name="recommend" class="fradio" value="" id="rec_yes"/>Yes</span>
+                         <span><input type="radio" name="recommend" class="fradio" value="" id="rec_no"/>No</span>
+						 <input type="hidden" name="recommend" id="recommend" value="" />
+                    </div>
+                </div>
+                <div class="feedback-qtn mb25">
+                    <div class="fqtn1">Would you like someone to call you about your concern?</div>
+                     <div class="fqtn2">
+                         <span><input type="radio" name="concern" class="fradio" value="" id="abt_yes"/>Yes</span>
+                         <span><input type="radio" name="concern" class="fradio" value="" id="abt_no"/>No</span>
+						 <input type="hidden" name="about_concern" id="about_concern" value="" />
+                    </div>  
+				 <div class="hidden_about" style="display:none;">
+                     <div class="feedback-qtn">Your contact number</div>
+                     <div class="feedback-field">
+                        <input class="input-text required-entry mb25 font12 required-entry validate-number" placeholder=" * Phone Number "/ name="concern_number" id="concern_number" maxlength="10"> 
+                     </div>
+									 
+					<div class="feedback-qtn">Best time to call</div>
+					<div class="feedback-field">
+                        <select class="input-text required-entry mb25 font12 validate-select" name="best_time" id="best_time">
+						<option value="">Please choose one</option>
+						<option value="Week days, morning">Week days, morning</option>
+						<option value="Week days, afternoon">Week days, afternoon</option>
+						<option value="Week days, evening">Week days, evening</option>
+						<option value="Week end , morning">Week end , morning</option>
+						<option value="Week end, afternoon">Week end, afternoon</option>
+						<option value="Week end, evening">Week end, evening</option>
+						</select> 
+                    </div>
+				</div>	
+                </div>
+                <div class="feedback-qtn">Please enter your email address</div>
+                <div class="feedback-field">
+                        <input class="input-text required-entry mb25 font12 required-entry validate-email" placeholder=" * Email Address "/ name="email" id="email"> 
+                </div>
+
+               <div class="feedback-field mb25"> <button type="submit" title="Submit" class="button feed-button"><span>Submit</span></button></div>
+             </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+//<![CDATA[
+    var feedForm = new VarienForm('feedForm', false);
+//]]>
+</script>
+
+<style>#yt_left{ display:none;}</style><!-- DONT REMOVE FROM THIS PAGE -- VERY IMP-->
+
+<style type="text/css">
+
+.feedback-qtn{ float: left; width: 100%; margin-bottom: 5px; color: #555; font-size: 13px;}
+.feedback-field{  float: left;  width: 100%;  }
+.mb25{ margin-bottom: 25px !important;}
+.fqtn1{   width: 72%;  float: left;}
+.fqtn2{   width: 28%;  float: left;}
+.fqtn2 span{   float: left;  width: 50%;}
+.fradio{ margin: 5px 5px 0px !important;}
+.fdbacktxt{  font-size: 14px;  color: #000;  font-weight: bold !important;  margin-bottom: 15px;  margin-top: 15px;}
+.feed-button{  float: left;  width: 108px;  height: 33px;  background: #52565f;  color: #fff;  text-align: center;  text-transform: uppercase;  font-size: 13px;  margin-bottom: 35px;  margin-right: 21px;  margin-top: 15px;}
+.font12{ font-size: 12px !important;}
+.charlength{ font-size: 10px !important; color: #b6b6b6 !important;}
+</style>
+
+<script>
+jQuery(document).ready(function(){
+    jQuery("#acc_yes").click(function(){
+        jQuery("#accomplish_want").val("Yes");
+    });
+	jQuery("#acc_no").click(function(){
+        jQuery("#accomplish_want").val("No");
+    });
+	
+	
+	jQuery("#rec_yes").click(function(){
+        jQuery("#recommend").val("Yes");
+    });
+	jQuery("#rec_no").click(function(){
+        jQuery("#recommend").val("No");
+    });
+	
+	
+	jQuery("#abt_yes").click(function(){
+        jQuery("#about_concern").val("Yes");
+		jQuery(".hidden_about").css("display", "block");
+    });
+	jQuery("#abt_no").click(function(){
+        jQuery("#about_concern").val("No");
+		jQuery(".hidden_about").css("display", "none");
+    });
+	
+});
+</script>

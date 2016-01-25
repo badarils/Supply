@@ -1,0 +1,393 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2008-2015 Diglin GmbH - Switzerland (http://www.diglin.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Create account form template
+ *
+ * @see app/design/frontend/base/default/template/customer/form/register.phtml
+ */
+/** @var $this Mage_Customer_Block_Form_Register */
+?>
+
+    <div class="page-title">
+        <h1><?php echo $this->__('Create an Account') ?></h1>
+    </div>
+<div class="account-create">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="log_screen">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+            <div class="creat_account">
+            <?php echo $this->getChildHtml('form_fields_before')?>
+            <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+            <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="form-validate">
+                <div class="register">
+                    <input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
+                    <input type="hidden" name="error_url" value="<?php echo $this->getErrorUrl() ?>" />
+
+                    <h2><?php echo $this->__('New Customers') ?></h2>
+                    <p><?php echo $this->__('By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.') ?></p>
+
+                    <ul>
+                        <?php echo $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
+                        <li>
+                            <input type="text" placeholder="Email Address" name="email" id="email_address" value="<?php echo $this->escapeHtml($this->getFormData()->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text mt10 validate-emai" />
+                        </li>    
+                            <!-- <input type="text" name="username" id="username" value="<?php //echo $this->escapeHtml($this->getFormData()->getUsername()) ?>" title="<?php //echo Mage::helper('username')->__('Username') ?>" class="input-text required-entry" /> -->
+                               
+                        <li class="right">
+                            <input type="text" name="mobile_code" id="mobile_code" value="91" readonly title="<?php echo $this->__('Country Code') ?>" class="input-text validate-digits mt10" style="width:38px;" /> <span style="line-height:60px;">-</span>
+            
+                                <input type="text" placeholder="* Mobile No." name="mobile" id="mobile" value="<?php echo $this->htmlEscape($this->getFormData()->getMobile()) ?>" title="<?php echo $this->__('Mobile No.') ?>" class="mt10 input-text required-entry maximum-length-10 minimum-length-10 validate-digits validate-length" style="width:84%; float:right" /><br />
+                                    <em>Please enter your 10 digit mobile number. There should be no spaces, alphanumeric characters, zero prefixes or + sign or – sign in the mobile number.</em>
+                        </li>
+                        <?php if ($this->isNewsletterEnabled()): ?>
+                      <!--  <li >
+                            <input type="checkbox" name="is_subscribed" title="<?php echo $this->__('Sign Up for Newsletter') ?>" value="1" id="is_subscribed"<?php if($this->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox" />
+                            <label for="is_subscribed"><?php echo $this->__('Sign Up for Newsletter') ?></label>
+                        </li>-->
+
+                        <?php endif ?>
+                    <?php $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>
+                    <?php if ($_dob->isEnabled()): ?>
+                        <li><?php echo $_dob->setDate($this->getFormData()->getDob())->toHtml() ?></li>
+                    <?php endif ?>
+                    <?php $_taxvat = $this->getLayout()->createBlock('customer/widget_taxvat') ?>
+                    <?php if ($_taxvat->isEnabled()): ?>
+                        <li><?php echo $_taxvat->setTaxvat($this->getFormData()->getTaxvat())->toHtml() ?></li>
+                    <?php endif ?>
+                    <?php $_gender = $this->getLayout()->createBlock('customer/widget_gender') ?>
+                    <?php if ($_gender->isEnabled()): ?>
+                        <li><?php echo $_gender->setGender($this->getFormData()->getGender())->toHtml() ?></li>
+                    <?php endif ?>
+                    </ul>
+
+
+
+
+
+            <?php if($this->getShowAddressFields()): ?>
+                    <input type="hidden" name="create_address" value="1" />
+                    <h2 class="legend"><?php echo $this->__('Address Information') ?></h2>
+                    <ul >
+                        <li>
+                            <input type="text" placeholder="Company" name="company" id="company" value="<?php echo $this->escapeHtml($this->getFormData()->getCompany()) ?>" title="<?php echo $this->__('Company') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('company') ?>" />
+                        </li>
+                        <li class="right">
+                            <input type="text" name="telephone" id="telephone" value="<?php echo $this->escapeHtml($this->getFormData()->getTelephone()) ?>" title="<?php echo $this->__('Telephone') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('telephone') ?>" />
+                        </li>
+                    <?php $_streetValidationClass = $this->helper('customer/address')->getAttributeValidationClass('street'); ?>
+                        <li>
+                                <input type="text" placeholder="Street Address" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet(1)) ?>" title="<?php echo $this->__('Street Address') ?>" id="street_1" class="input-text <?php echo $_streetValidationClass ?>" />
+                        </li>
+                    <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
+                    <?php for ($_i = 2, $_n = $this->helper('customer/address')->getStreetLines(); $_i <= $_n; $_i++): ?>
+                        <li class="right">
+                                <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet($_i)) ?>" title="<?php echo $this->__('Street Address %s', $_i) ?>" id="street_<?php echo $_i ?>" class="input-text <?php echo $_streetValidationClass ?>" />
+                        </li>
+                    <?php endfor; ?>
+                        <li>
+                            <input type="text" placeholder="City" name="city" value="<?php echo $this->escapeHtml($this->getFormData()->getCity()) ?>" title="<?php echo $this->__('City') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('city') ?>" id="city" />
+                        </li>
+                        <li>
+                            <select id="region_id" name="region_id" title="<?php echo $this->__('State/Province') ?>" class="validate-select" style="display:none;">
+                                <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
+                            </select>
+                            <script type="text/javascript">
+                                    //<![CDATA[
+                                $('region_id').setAttribute('defaultValue', "<?php echo $this->getFormData()->getRegionId() ?>");
+                                    //]]>
+                            </script>
+                            <input type="text" id="region" name="region" value="<?php echo $this->escapeHtml($this->getRegion()) ?>" title="<?php echo $this->__('State/Province') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('region') ?>" style="display:none;" />
+                        </li>
+                        <li>
+                            <input type="text" placeholder="Zip/Postal Code" name="postcode" value="<?php echo $this->escapeHtml($this->getFormData()->getPostcode()) ?>" title="<?php echo $this->__('Zip/Postal Code') ?>" id="zip" class="input-text validate-zip-international <?php echo $this->helper('customer/address')->getAttributeValidationClass('postcode') ?>" />
+                        </li>
+                        <li>
+                            <?php echo $this->getCountryHtmlSelect() ?>>
+                        </li>
+                    </ul>
+                    <input type="hidden" name="default_billing" value="1" />
+                    <input type="hidden" name="default_shipping" value="1" />
+
+            <?php endif; ?>
+
+
+                
+                    <h2 class="legend"><?php echo $this->__('Login Information') ?></h2>
+                    <ul>
+                        <li>
+                            <input type="password" placeholder="* Password" name="password" id="password" title="<?php echo $this->__('Password') ?>" class="input-text required-entry validate-password" />
+                        </li>
+                        <li class="right">
+                            <input type="password" placeholder="* Confirm Password" name="confirmation" title="<?php echo $this->__('Confirm Password') ?>" id="confirmation" class="input-text required-entry validate-cpassword" />
+                        </li>
+                        <?php echo $this->getChildHtml('form.additional.info'); ?>
+                        <?php echo $this->getChildHtml('persistent.remember.me'); ?>
+						
+						<li style="margin-bottom: 20px;width: 17%;"><input type="checkbox" name="terms" id="terms" class="required-entry" style="margin-top: 3px;">I Agree to the</li>
+						<li style="margin-bottom: 20px;width: 80%;"><a style="color: #af7b1b;text-decoration: underline;" href="<?php echo $this->getUrl('terms_and_conditions'); ?>" target="__blank">Terms & Conditions</a></li>
+						
+
+                        <li>
+                            <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+                        </li>
+                        <li class="right">
+                            <button type="submit" title="<?php echo $this->__('Create An Account') ?>" class="button form-validate"><span><?php echo $this->__('Create An Account') ?></span></button>
+                        </li>
+                    </ul>
+                    <?php echo $this->getChildHtml('persistent.remember.me.tooltip'); ?>
+
+                </div>
+
+                </form>
+
+
+
+                <?php if (Mage::helper('checkout')->isContextCheckout()): ?>
+                    <input name="context" type="hidden" value="checkout" />
+                <?php endif; ?>
+            
+            </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <form action="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) ?>customer/account/loginPost/" method="post" id="login-form1">
+				
+				<input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+				
+                    <div class="login_panel">
+                        <h2><?php echo $this->__('Registered Customers') ?></h2>
+                        <p><?php echo $this->__('If you have an account with us, please log in.') ?></p>
+                        <ul>
+                            <li>
+                                <input type="text" name="login[username]" placeholder="* Mobile Number" value="<?php echo $this->escapeHtml($this->getUsername()) ?>" id="email" class="input-text required-entry maximum-length-10 minimum-length-10 validate-digits validate-length mobile2" title="<?php echo $this->__('Mobile Number') ?>" />
+                            </li>
+                            <li>
+                                <input type="password" name="login[password]" placeholder="* Password" class="custominput required-entry validate-password" id="pass" title="<?php echo $this->__('Password') ?>"/>
+                                <button type="submit" class="submit login-form1" title="<?php echo $this->__('Login') ?>" name="send" id="send2"><span><img src="<?php echo $this->getSkinUrl('images/submit_arrow.jpg'); ?>" /></span></button>
+                            </li>
+							
+							
+                            <?php echo $this->getChildHtml('form.additional.info'); ?>
+                            <?php echo $this->getChildHtml('persistent.remember.me'); ?>
+                        </ul>
+                        <?php echo $this->getChildHtml('persistent.remember.me.tooltip'); ?>
+
+                        <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12"><?php echo $this->__('* Required Fields') ?></span>
+                        <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-right"><a href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?>customer/account/forgotpassword/" class="f-left"><?php echo $this->__('Forgot Your Password?') ?></a></span>
+
+                     <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="or"><img src="<?php echo $this->getSkinUrl('images/or.jpg'); ?>" /></span>
+                        </div>
+                        <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12"><a href="https://www.facebook.com/mSupplydotcom?fref=ts" target="_blank"><img src="<?php  echo $this->getChildHtml('inchoo_socialconnect_facebook_login_button'); ?>" /></a></span>
+                        <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12">   </span> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript">
+    //<![CDATA[
+        var dataForm = new VarienForm('form-validate', true);
+        <?php if($this->getShowAddressFields()): ?>
+        new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'zip');
+        <?php endif; ?>
+    //]]>
+    </script>
+
+        <script type="text/javascript">
+    //<![CDATA[
+        var dataForm1 = new VarienForm('login-form1', true);
+        <?php if($this->getShowAddressFields()): ?>
+        new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'zip');
+        <?php endif; ?>
+    //]]>
+    </script>
+<style>.error3{color:red;}.error4{color:red;}.error1{color:red;}.error{color:red;}.errormobi1{color:red;}</style>	
+    <script type="text/javascript">
+	
+	jQuery(document).ready(function() {
+
+jQuery('.form-validate').click(function() { 
+
+    jQuery(".error").hide();
+	jQuery(".error1").hide();
+	
+    var hasError = false;
+	var hasError1 = false;
+	
+	var emailblockReg = /^([0-9a-zA-Z\-_.]+@[a-zA-z]{2,7}([\w-]+\.)+[\w-]{2,4})?$/;
+	
+	var emailaddressVal = jQuery("#email_address").val();
+    if(!emailblockReg.test(emailaddressVal)) {
+        jQuery("#email_address").after('<span class="error">Enter Valid Email Address.</span>');
+        hasError = true;
+    }
+
+    if(hasError == true) { return false; }
+	
+
+	var mobiReg = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/;
+	//var mobiReg1 = /^(?:[2-9][0-8][0-9])(?!(\d)\1+$)([2-9][0-9]{2}[0-9]{4})$/;
+	
+	var mobileVal = jQuery("#mobile").val();
+	
+	var data =jQuery("#mobile").val();
+	
+	/** 5 number validation **/
+    var mobi5first = data.substring(0,5);
+	var mobi5second = data.substring(5,10);
+
+	 /** 4 number validation **/
+	var mobi4first = data.substring(0,4);
+	var mobi4second = data.substring(4,8);
+
+	/** 3 number validation **/
+    var mobi3first = data.substring(0,3);
+	var mobi3second = data.substring(3,6);
+	var mobi3third = data.substring(6,9);
+	 
+	
+	 
+    if(mobileVal == '') {
+        jQuery("#mobile").after('<span class="error1">Enter Mobile Number.</span>');
+        hasError1 = true;
+    }
+
+    else if(!mobiReg.test(mobileVal)) {
+        jQuery("#mobile").after('<span class="error1">Enter Valid Mobile Number.</span>');
+        hasError1 = true;
+    }
+	// else if(!mobiReg1.test(mobileVal)) {
+        // jQuery("#mobile").after('<span class="error1">Enter a valid mobile number wrong.</span>');
+        // hasError1 = true;
+    // }
+	
+	 else if((mobi5first == 99999 || mobi5first == 88888 || mobi5first == 77777) || (mobi5second == 00000 || mobi5second == 11111 || mobi5second == 22222 || mobi5second == 33333 || mobi5second == 44444 || mobi5second == 55555 || mobi5second == 66666 || mobi5second == 77777 || mobi5second == 88888 || mobi5second == 99999))
+     {
+		jQuery("#mobile").after('<span class="error1">Enter Valid Mobile Number.</span>');
+		hasError1 = true;	 
+	 }
+	  else if((mobi4first == 9999 || mobi4first == 8888 || mobi4first == 7777) || (mobi4second == 0000 || mobi4second == 1111 || mobi4second == 2222 || mobi4second == 3333 || mobi4second == 4444 || mobi4second == 5555 || mobi4second == 6666 || mobi4second == 7777 || mobi4second == 8888 || mobi4second == 9999))
+     {
+		jQuery("#mobile").after('<span class="error1">Enter Valid Mobile Number.</span>');
+		 hasError1 = true;	 
+	 }
+	 
+	else if ((mobi3first == 999 || mobi3first == 888 || mobi3first == 777) && (mobi3second == 000 || mobi3second == 111 || mobi3second == 222 || mobi3second == 333 || mobi3second == 444 || mobi3second == 555 || mobi3second == 666 || mobi3second == 777 || mobi3second == 888 || mobi3second == 999) && (mobi3third == 000 || mobi3third == 111 || mobi3third == 222 || mobi3third == 333 || mobi3third == 444 || mobi3third == 555 || mobi3third == 666 || mobi3third == 777 || mobi3third == 888 || mobi3third == 999))
+	 {
+			jQuery("#mobile").after('<span class="error1">Enter Valid Mobile Number.</span>');
+			hasError1 = true;	 
+	 }
+	
+    if(hasError1 == true) { return false; }
+	
+	
+		jQuery(".error3").hide();
+			var hasError3 = false;
+			var nameregex =/^[a-zA-Z. ]+$/;
+			var nameaddressVal = jQuery("#firstname").val();
+		if(!nameregex.test(nameaddressVal)) {
+				jQuery("#firstname").after('<span class="error3">Enter Valid First Name.</span>');
+				hasError3 = true;
+			}
+
+			if(hasError3 == true) { return false; }
+			
+			
+			jQuery(".error4").hide();
+			var hasError4 = false;
+			var lnameregex =/^[a-zA-Z. ]+$/;
+			var lnameaddressVal = jQuery("#lastname").val();
+		if(!lnameregex.test(lnameaddressVal)) {
+				jQuery("#lastname").after('<span class="error4">Enter Valid Last Name.</span>');
+				hasError4 = true;
+			}
+
+			if(hasError4 == true) { return false; }
+			
+			
+			
+
+
+   });
+   
+   jQuery('.login-form1').click(function() { 
+   jQuery(".error1").hide();
+   	jQuery(".errormobi1").hide();
+	var hasErrormobi1 = false;
+	var mobiRegm1 = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/;
+	//var mobiRegmb1 = /^(?:[2-9][0-8][0-9])(?!(\d)\1+$)([2-9][0-9]{2}[0-9]{4})$/;
+	
+	var mobilenVal = jQuery(".mobile2").val();
+	
+	var data1 =jQuery(".mobile2").val();
+	
+	/** 5 number validation **/
+    var mobin5first = data1.substring(0,5);
+	var mobin5second = data1.substring(5,10);
+
+	 /** 4 number validation **/
+	var mobin4first = data1.substring(0,4);
+	var mobin4second = data1.substring(4,8);
+
+	/** 3 number validation **/
+    var mobin3first = data1.substring(0,3);
+	var mobin3second = data1.substring(3,6);
+	var mobin3third = data1.substring(6,9);
+	 
+	
+	 
+    if(mobilenVal == '') {
+        jQuery(".mobile2").after('<span class="errormobi1">Enter Mobile Number.</span>');
+        hasErrormobi1 = true;
+    }
+
+    else if(!mobiRegm1.test(mobilenVal)) {
+        jQuery(".mobile2").after('<span class="errormobi1">Enter Valid Mobile Number.</span>');
+        hasErrormobi1 = true;
+    }
+	
+	
+	 else if((mobin5first == 99999 || mobin5first == 88888 || mobin5first == 77777) || (mobin5second == 00000 || mobin5second == 11111 || mobin5second == 22222 || mobin5second == 33333 || mobin5second == 44444 || mobin5second == 55555 || mobin5second == 66666 || mobin5second == 77777 || mobin5second == 88888 || mobin5second == 99999))
+     {
+		jQuery(".mobile2").after('<span class="error1">Enter Valid Mobile Number.</span>');
+		hasError1 = true;	 
+	 }
+	  else if((mobin4first == 9999 || mobin4first == 8888 || mobin4first == 7777) || (mobin4second == 0000 || mobin4second == 1111 || mobin4second == 2222 || mobin4second == 3333 || mobin4second == 4444 || mobin4second == 5555 || mobin4second == 6666 || mobin4second == 7777 || mobin4second == 8888 || mobin4second == 9999))
+     {
+		jQuery(".mobile2").after('<span class="error1">Enter Valid Mobile Number.</span>');
+		 hasError1 = true;	 
+	 }
+	 
+	else if ((mobin3first == 999 || mobin3first == 888 || mobin3first == 777) && (mobin3second == 000 || mobin3second == 111 || mobin3second == 222 || mobin3second == 333 || mobin3second == 444 || mobin3second == 555 || mobin3second == 666 || mobin3second == 777 || mobin3second == 888 || mobin3second == 999) && (mobin3third == 000 || mobin3third == 111 || mobin3third == 222 || mobin3third == 333 || mobin3third == 444 || mobin3third == 555 || mobin3third == 666 || mobin3third == 777 || mobin3third == 888 || mobin3third == 999))
+	 {
+			jQuery(".mobile2").after('<span class="error1">Enter Valid Mobile Number.</span>');
+			hasError1 = true;	 
+	 }
+	 
+
+    if(hasErrormobi1 == true) { return false; }		
+  
+   
+    });
+   
+});
+ </script>
+

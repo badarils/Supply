@@ -1,0 +1,195 @@
+<?php
+    $APIURL = Mage::getStoreConfig('configuration/configuration_homepage/homepageproductsapiurl')."p2";
+    $ch = curl_init($APIURL);
+	curl_setopt($ch, CURLOPT_URL,$APIURL);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $NewProducts=json_decode(curl_exec($ch));
+	curl_close($ch);
+
+    $liClasses = array ("col-lg-2 col-md-2 col-sm-2 col-xs-6 divider",
+                        "col-lg-2 col-md-2 col-sm-2 col-xs-6 divider",
+                        "col-lg-2 col-md-2 col-sm-2 col-xs-6 divider",
+                        "col-lg-2 col-md-2 col-sm-2 col-xs-6 divider",
+                        "col-lg-2 col-md-2 col-sm-2 col-xs-6 divider hidden-xs",                        
+                        "col-lg-2 col-md-2 col-sm-2 col-xs-6 divider",
+                        "col-lg-2 col-md-2 col-sm-2 col-xs-6 divider",
+                        "col-lg-2 col-md-2 col-sm-2 col-xs-6 divider",
+                        "col-lg-2 col-md-2 col-sm-2 col-xs-6 divider",
+                        "col-lg-2 col-md-2 col-sm-2 col-xs-6 divider hidden-xs",
+                        "col-lg-2 col-md-2 col-sm-2 col-xs-6 divider",
+                        "col-lg-2 col-md-2 col-sm-2 col-xs-6 divider",
+                        "col-lg-2 col-md-2 col-sm-2 col-xs-6 divider",
+                        "col-lg-2 col-md-2 col-sm-2 col-xs-6 divider",
+                        "col-lg-2 col-md-2 col-sm-2 col-xs-6 divider hidden-xs");
+?>
+<!-- msupply products container starts here -->
+<style>.hmptitleblock { text-overflow: ellipsis;white-space: nowrap;width: 90%;overflow: hidden;}.hmptitle:hover{color: #637078 !important; text-decoration:none; cursor:pointer;}</style>
+<div id="msupply_products" class="bgwhite">
+      <div class="container mobile_align">
+        <h1 class="fade-line">Electrical</h1>
+        <!-- msupply products  -->
+        <div id="produts_nav">
+          <div id="electricalsSlide" class="carousel slide">
+            <div class="carousel-inner">
+              <!-- carousel item active  starts here-->
+              <div class="item active">
+                 <ul class="row list_produtcs" id="products_items">
+                    <?php
+                        for($i=0;$i<5;$i++)
+                        {
+                     ?>
+                            <li class="<?php echo $liClasses[$i]; ?>">
+                            <a href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).$NewProducts->products[$i]->request_path; ?>">
+                                <img src="<?php echo $NewProducts->products[$i]->ImageURL; ?>" alt="msupply" width="170" height="235"/>
+                            </a>
+                           <div class="hmptitleblock"><a href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).$NewProducts->products[$i]->request_path; ?>" class="hmptitle" title="<?php echo $NewProducts->products[$i]->Product_Name;  ?>"> <?php echo $NewProducts->products[$i]->Product_Name; ?></a></div>
+                             <div class="price_tag wishlist_price">                                         
+								<?php if($NewProducts->products[$i]->Special_Price !=''){ ?>	
+								<span class="old-price">
+									<?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol() . number_format($price = $NewProducts->products[$i]->Price,'0'); ?>
+								</span> 
+								<?php
+									$date = date("Y-m-d");
+									if($NewProducts->products[$i]->Special_Price_From_Date !='' && $NewProducts->products[$i]->Special_Price_From_Date >= $date )
+									{
+										$date1=date_create($NewProducts->products[$i]->Special_Price_From_Date);
+										$date2=date_create($NewProducts->products[$i]->Special_Price_To_Date);
+										$diff=date_diff($date1,$date2);
+										$sign = $diff->format("%R");
+										$days = $diff->format("%a");
+										if($sign == '+' && $days >= 0)
+										{ ?>
+											<span class="special-price"> <?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol() . number_format($price = $NewProducts->products[$i]->Special_Price,'0'); ?> </span>
+								 <?php 	}
+									} else if($NewProducts->products[$i]->Special_Price_From_Date =='' && $NewProducts->products[$i]->Special_Price_To_Date =='' ){
+								 ?>									
+									<span class="special-price"> <?php  echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol() . number_format($price = $NewProducts->products[$i]->Special_Price,'0'); ?></span>
+								<?php }
+								}else { ?>
+									<span class="regular-price">
+										<?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol() . number_format($price = $NewProducts->products[$i]->Price,'0'); ?>
+									</span>
+								<?php }	?>
+								<?php 
+									  if($NewProducts->products[$i]->Product_Unit != "")
+									   echo " / ".$NewProducts->products[$i]->Product_Unit;
+								?>
+                            </div>
+                          </li>
+                    <?php
+                                
+                        }
+                    ?>
+                  </ul>
+              </div>
+			  <div class="item">
+                <ul class="row list_produtcs" id="products_items">
+                 <?php
+                        for($i=5;$i<10;$i++)
+                        {
+                     ?>
+                            <li class="<?php echo $liClasses[$i]; ?>">
+                            <a href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).$NewProducts->products[$i]->request_path; ?>">
+                                <img src="<?php echo $NewProducts->products[$i]->ImageURL; ?>" alt="msupply" width="170" height="235"/>
+                            </a>
+                             <div class="hmptitleblock"><a href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).$NewProducts->products[$i]->request_path; ?>" class="hmptitle" title="<?php echo $NewProducts->products[$i]->Product_Name;  ?>"> <?php echo $NewProducts->products[$i]->Product_Name; ?></a></div>
+                             <div class="price_tag wishlist_price">                                         
+								<?php if($NewProducts->products[$i]->Special_Price !=''){ ?>	
+								<span class="old-price">
+									<?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol() . number_format($price = $NewProducts->products[$i]->Price,'0'); ?>
+								</span> 
+								<?php
+									$date = date("Y-m-d");
+									if($NewProducts->products[$i]->Special_Price_From_Date !='' && $NewProducts->products[$i]->Special_Price_From_Date >= $date )
+									{
+										$date1=date_create($NewProducts->products[$i]->Special_Price_From_Date);
+										$date2=date_create($NewProducts->products[$i]->Special_Price_To_Date);
+										$diff=date_diff($date1,$date2);
+										$sign = $diff->format("%R");
+										$days = $diff->format("%a");
+										if($sign == '+' && $days >= 0)
+										{ ?>
+											<span class="special-price"> <?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol() . number_format($price = $NewProducts->products[$i]->Special_Price,'0'); ?> </span>
+								 <?php 	}
+									} else if($NewProducts->products[$i]->Special_Price_From_Date =='' && $NewProducts->products[$i]->Special_Price_To_Date =='' ){
+								 ?>									
+									<span class="special-price"> <?php  echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol() . number_format($price = $NewProducts->products[$i]->Special_Price,'0'); ?></span>
+								<?php }
+								}else { ?>
+									<span class="regular-price">
+										<?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol() . number_format($price = $NewProducts->products[$i]->Price,'0'); ?>
+									</span>
+								<?php }	?>
+								<?php 
+									  if($NewProducts->products[$i]->Product_Unit != "")
+									   echo " / ".$NewProducts->products[$i]->Product_Unit;
+								?>
+                            </div>
+                          </li>
+                    <?php
+                                
+                        }
+                    ?>                  
+                </ul>
+              </div>
+                <div class="item">
+                <ul class="row list_produtcs" id="products_items">
+                 <?php
+                        for($i=10;$i<15;$i++)
+                        {
+                     ?>
+                            <li class="<?php echo $liClasses[$i]; ?>">
+                            <a href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).$NewProducts->products[$i]->request_path; ?>">
+                                <img src="<?php echo $NewProducts->products[$i]->ImageURL; ?>" alt="msupply" width="170" height="235"/>
+                            </a>
+                            <div class="hmptitleblock"><a href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).$NewProducts->products[$i]->request_path; ?>" class="hmptitle" title="<?php echo $NewProducts->products[$i]->Product_Name;  ?>"> <?php echo $NewProducts->products[$i]->Product_Name; ?></a></div>
+                             <div class="price_tag wishlist_price">                                         
+								<?php if($NewProducts->products[$i]->Special_Price !=''){ ?>	
+								<span class="old-price">
+									<?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol() . number_format($price = $NewProducts->products[$i]->Price,'0'); ?>
+								</span> 
+								<?php
+									$date = date("Y-m-d");
+									if($NewProducts->products[$i]->Special_Price_From_Date !='' && $NewProducts->products[$i]->Special_Price_From_Date >= $date )
+									{
+										$date1=date_create($NewProducts->products[$i]->Special_Price_From_Date);
+										$date2=date_create($NewProducts->products[$i]->Special_Price_To_Date);
+										$diff=date_diff($date1,$date2);
+										$sign = $diff->format("%R");
+										$days = $diff->format("%a");
+										if($sign == '+' && $days >= 0)
+										{ ?>
+											<span class="special-price"> <?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol() . number_format($price = $NewProducts->products[$i]->Special_Price,'0'); ?> </span>
+								 <?php 	}
+									} else if($NewProducts->products[$i]->Special_Price_From_Date =='' && $NewProducts->products[$i]->Special_Price_To_Date =='' ){
+								 ?>									
+									<span class="special-price"> <?php  echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol() . number_format($price = $NewProducts->products[$i]->Special_Price,'0'); ?></span>
+								<?php }
+								}else { ?>
+									<span class="regular-price">
+										<?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol() . number_format($price = $NewProducts->products[$i]->Price,'0'); ?>
+									</span>
+								<?php }	?>
+								<?php 
+									  if($NewProducts->products[$i]->Product_Unit != "")
+									   echo " / ".$NewProducts->products[$i]->Product_Unit;
+								?>
+                            </div>
+                          </li>
+                    <?php
+                                
+                        }
+                    ?>                  
+                </ul>
+              </div>
+              <!-- carousel item active  end here-->             
+              <!-- carousel item end here -->
+            </div> <a class="left carousel-control previous controllers" href="#electricalsSlide" data-slide="prev"><i class="fa fa-angle-left"></i></a> <a class="right carousel-control next controllers" href="#electricalsSlide" data-slide="next"><i class="fa fa-angle-right"></i></a> </div>
+          <!-- products items section(Coming Soon) end here -->
+        </div>
+        <!-- msupply products  end here -->
+	</div> 
+</div>
+	 <!-- msupply products container end here -->
+	 <hr class="divider-fade-in" />

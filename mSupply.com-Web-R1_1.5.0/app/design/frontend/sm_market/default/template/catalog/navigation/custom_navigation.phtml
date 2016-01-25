@@ -1,0 +1,131 @@
+<div class="container">
+   	     
+         <button type="button" class="navbar-toggle" id="buttontoggle" data-toggle="collapse" data-target="#hide">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+          </button>
+   </div>
+<div id="hide" class=" menu">
+ <ul class="flexy-menu orange" >
+					   <?php 
+					   $children = Mage::getModel('catalog/category')->load(2); 
+					   $_category1 =  $children->getChildrenCategories();
+					   ?>
+					   <?php $i=1; foreach ($_category1 as $category1) { ?>
+						<li class="main_menu<?php echo $i; ?>"><a href="JavaScript:void(0)" class="interior-menu"><span class="icon-build "></span><?php echo $category1->getName();?></a>
+							<ul>
+							<?php 
+							$catId1 = $category1->getId();
+                            $children1 = Mage::getModel('catalog/category')->load($catId1); 
+					        $_category2 =  $children1->getChildrenCategories();
+							?>
+					        <?php foreach ($_category2 as $category2) { ?>
+								<li><a href="JavaScript:void(0)"><?php echo $category2->getName();?></a>
+								<ul>
+								<?php 
+								$catId2 = $category2->getId();
+								$children2 = Mage::getModel('catalog/category')->load($catId2); 
+								$_category3 =  $children2->getChildrenCategories();
+								?>
+								<?php foreach ($_category3 as $category3) { ?>
+									<li><a href="<?php echo $category3->getUrl();?>"><?php echo $category3->getName();?></a>
+										<ul>
+										        <!-- Type start -->
+									
+												<?php
+												$products1 = Mage::getModel('catalog/category')->load($category3->getId())
+												 ->getProductCollection()
+												 ->addAttributeToSelect('*')
+												 ->addAttributeToFilter('status', 1)
+												 ->addAttributeToFilter('visibility', 4)
+												 ->setOrder('price', 'ASC');
+												
+												$menuType = 'product_type';
+												$usedtypeAttributeValues = array();
+												
+												foreach($products1 as $product)
+											    {
+												   $usedtypeAttributeValues[$product->getData($menuType)] = $product->getAttributeText($menuType);
+											    }
+                                                 $usedtypeAttributeValues1 = array_unique($usedtypeAttributeValues);
+												// if(count($usedtypeAttributeValues1) > 0){
+												?>
+												<div class="sub_menu">
+												<li><span class="sub_menu_header">Type</span></li>
+												<?php 
+												$typeUrl = $category3->getUrl(); 
+												$typefinalUrl = str_replace(".html","",$typeUrl);
+												?>
+												<?php  foreach($usedtypeAttributeValues1 as $key => $value) { ?>
+												<?php
+                                                $typeKey = strtolower($value);
+												$typeKeynew = str_replace(" &","",$typeKey);
+												$finaltypeKey = str_replace(" ","-",$typeKeynew);
+												?>
+												<?php if($category3->getId() == 249){ ?>
+												<li><a href="<?php echo $category3->getUrl();?>"><?php echo $value; ?></a></li>
+												<?php } else { ?>
+												<li><a href="<?php echo $typefinalUrl ;?>/filter/product_type/<?php echo $finaltypeKey ;?>.html"><?php echo $value; ?></a></li>
+												<?php } ?>
+												 <?php } ?>
+												</div>
+												 <?php //} ?>
+												<!-- Type end -->
+												
+												<!-- Brand start -->
+												
+												<?php
+												$products = Mage::getModel('catalog/category')->load($category3->getId())
+												 ->getProductCollection()
+												 ->addAttributeToSelect('*')
+												 ->addAttributeToFilter('status', 1)
+												 ->addAttributeToFilter('visibility', 4)
+												 ->setOrder('price', 'ASC');
+												
+												$manufacturer = 'manufacturer';
+												$usedAttributeValues = array();
+												
+												foreach($products as $product)
+											    {
+												   $usedAttributeValues[$product->getData($manufacturer)] = $product->getAttributeText($manufacturer);
+											    }
+                                                 $usedAttributeValues1 = array_unique($usedAttributeValues);
+												// if(count($usedAttributeValues1) > 0){
+												?>
+												<div class="sub_menu brand-menu">
+												<li><span class="sub_menu_header">Brand</span></li>
+												<?php 
+												$url = $category3->getUrl(); 
+												$finalUrl = str_replace(".html","",$url);
+												?>
+												<?php  foreach($usedAttributeValues1 as $key => $value) { ?>
+												<?php
+                                                $brandKey = strtolower($value);
+												$brandKeynew = str_replace(" &","",$brandKey);
+												$finalBrandKey = str_replace(" ","-",$brandKeynew);
+												?>
+												<li><a href="<?php echo $finalUrl ;?>/filter/manufacturer/<?php echo $finalBrandKey ;?>.html"><?php echo $value; ?></a></li>
+												<?php } ?>
+												</div>
+												 <?php //} ?>
+												
+												<!-- Brand end -->
+											<!--<div class="sub_menu_01">
+												<a href="#">How to buy? </a>
+												<a href="#">How much to Buy? </a>
+												<input type="button" value="Price Table" name="Price Table" class="price_table">
+											</div>-->
+										</ul>		
+									</li>
+								<?php } ?>	
+								</ul>		
+								</li>
+							<?php } ?>		
+							</ul>
+						</li>
+					<?php $i++; } ?>	
+</ul>
+</div>
+

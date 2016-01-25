@@ -1,0 +1,126 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/* @var Mage_Wishlist_Model_Item $item */
+$item = $this->getItem();
+$product = $item->getProduct();
+?>
+<div class="col-lg-10 col-md-10 col-sm-9 col-xs-8" style="padding-left:10px;">
+<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+<h4><?php echo $this->escapeHtml($product->getName()) ?></h4>
+<div class="rating_area col-lg-6 col-md-6 col-sm-6 col-xs-12">
+<div class="rating productpage">
+    <span class="ratingwidth" style="width:<?php echo (($product->getData('rating')/5)*100).'%' ?>"><?php echo $product->getData('rating') ?></span>
+    <span class="ratingblank"></span>
+</div>
+<span style="color:#af7b1b;"></span>
+</div>
+
+<div class="wishlist_price col-lg-6 col-md-6 col-sm-6 col-xs-12">
+<?php //echo $this->getPriceHtml($product, empty($options));
+
+	 echo $this->getPriceHtml($product);
+
+?>
+</div>
+<p><?php echo $this->escapeHtml($this->stripTags($product->getShortDescription()));?></p>
+
+<!--<span class="wishlist_offers">1 offer(s) from ₹45,380.00</span>-->
+
+<a href="<?php echo $this->getProductUrl($item) ?>" title="<?php echo $this->escapeHtml($product->getName()) ?>"></a>
+
+<?php if($this->getSortedChildren()): ?>
+    <div class="item-manage">
+    <?php foreach($this->getSortedChildren() as $childName):?>
+        <?php echo $this->getChildHtml($childName, false);?>
+    <?php endforeach;?>
+    </div>
+<?php endif; ?>
+</div>
+
+
+
+
+
+<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+<div class="cart-cell">
+
+<div class="revews_date"><?php 
+$added = $item->getAddedAt();
+$addeddate = date('d M Y', strtotime($added));
+echo $addeddate; ?></div>
+
+<div class="add-to-cart-alt">
+
+<?php if ($item->canHaveQty() && $item->getProduct()->isVisibleInSiteVisibility()): ?>
+
+    <input type="hidden" class="input-text qty validate-not-negative-number" name="qty[<?php echo $item->getId() ?>]" value="<?php echo $this->getAddToCartQty($item) * 1 ?>" />
+
+<?php endif; ?>
+
+<?php if ($product->isSaleable()): ?>
+
+    <button type="button" title="<?php echo $this->__('Add to Cart') ?>" onclick="setLocation('<?php echo $item->getProductUrl() ?>')" class="wishlist_btn" rel="nofollow noindex"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+
+<?php else: ?>
+
+    <?php if ($product->getIsSalable()): ?>
+
+        <p class="availability in-stock"><span><?php echo $this->__('In stock') ?></span></p>
+
+    <?php else: ?>
+
+        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+
+    <?php endif; ?>
+
+<?php endif; ?>
+
+</div>
+
+<?php foreach($this->getSortedChildren() as $childName):?>
+
+    <?php echo $this->getChildHtml($childName, false);?>
+
+<?php endforeach;?>
+
+<?php if ($product->isVisibleInSiteVisibility()): ?>
+
+    <!-- <p><a class="link-edit" href="<?php echo $this->getItemConfigureUrl($item) ?>"><?php echo $this->__('edit') ?></a></p> -->
+
+<?php endif ?>
+
+
+<a href="<?php echo $this->getItemRemoveUrl($this->getItem()); ?>" onclick="return confirmRemoveWishlistItem();" title="<?php echo $this->__('Remove item') ?>"
+
+   class="wishlist_remove" rel="nofollow noindex"><?php echo $this->__('Remove item');?></a>
+</div>
+</div>
+
+
+
+
+</div>

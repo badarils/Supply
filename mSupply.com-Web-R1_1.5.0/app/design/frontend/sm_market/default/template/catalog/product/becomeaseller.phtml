@@ -1,0 +1,135 @@
+
+<style>
+.modal-backdrop {
+   z-index: 0;
+  background-color: rgba(0, 0, 0, 0);
+}
+</style>
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+    <div class="left_panel">
+    <h2>Become A Seller</h2>
+
+        <div id="beamaeasellerform">
+            <form name="becameaseller" id="becameaseller" method="post" action="<?php echo $this->getUrl('catalog/product/sendapplication')?>">
+            <div class="form-list">
+                <ul>
+                    <li><label for="seller_name">Seller Name <span class="required">*</span></label>   
+                    <input type="text" class="input-text required-entry" value="" name="seller_name" id="seller_name"></li>
+                    <!--<li><label for="seller_code">Seller Code <span class="required">*</span></label>
+                    <input type="text" class="input-text requiredinput required-entry" value="" name="seller_code" id="seller_code" maxlength="10"></li>-->
+                    <li><label for="pan_no">PAN Number <span class="required">*</span></label>
+                    <input type="text" class="input-text requiredinput required-entry " value="" name="pan_no" 
+                    id="pan_no" maxlength="10"></li>
+                    <li><label for="vat_no">VAT Number <span class="required">*</span></label>
+                    <input type="text" class="input-text requiredinput required-entry" value="" name="vat_no" 
+                    id="vat_no" maxlength="20"></li>
+                    <!--<li><label for="payment_terms">Payment Terms</label>
+                    <textarea class=" textarea" rows="4"  title="Payment Terms" name="payment_terms" id="payment_terms"></textarea> </li>-->
+                    <li><label for="address">Address <span class="required">*</span></label>
+                    <textarea class=" required-entry textarea requiredinput" rows="4" title="Address" name="address" id="address"></textarea></li>
+                    <li><label for="city">City</label>
+                    <input type="text" class=" input-text" value="" name="city" id="city"></li>
+                    <li><label for="pincode">Pin Code <span class="required">*</span></label>
+                    <input type="text" class="validate-number input-text requiredinput required-entry" value="" name="pincode" id="pincode" maxlength="6"> </li>
+                    <li><label for="state">State</label>
+                    <input type="text" class=" input-text" value="" name="state" id="state"> </li>
+                    <li><label for="country">Country</label>
+                    <input type="text" class=" input-text" value="" name="country" id="country"> </li>
+                    <li><label for="phone">Phone <span class="required">*</span></label>
+                    <input type="text" class="validate-number input-text requiredinput required-entry validate-length maximum-length-10 minimum-length-10 validate-digits" value="" name="phone" id="phone" maxlength="10"/></li>
+                    <li><label for="contact_person_1">Contact Person Name 1</label>
+                    <input type="text" class=" input-text" value="" name="contact_person_1" id="contact_person_1"> </li>
+                    <li><label for="contact_person_2">Contact Person Name 2</label>
+                    <input type="text" class=" input-text" value="" name="contact_person_2" id="contact_person_2"> </li>
+                    <li><label for="email_id_1">E-mail 1 <span class="required">*</span></label>
+                    <input type="text" class="validate-email input-text requiredinput required-entry" value="" name="email_id_1" id="email_id_1"></li>
+                    <li><label for="email_id_2">E-mail 2</label>
+                    <input type="text" class="validate-email input-text" value="" name="email_id_2" id="email_id_2"> </li>
+                    <li><label for="website">Website</label>
+                    <input type="text" class="input-text" value="" name="website" id="website"> </li>
+                    <li><label for="bank_name">Bank Name <span class="required">*</span></label>
+                    <input type="text" class="input-text requiredinput required-entry" value="" name="bank_name" id="bank_name"></li>
+                    <li><label for="bank_acc">Bank Account Number <span class="required">*</span></label>
+                    <input type="text" class="validate-number input-text requiredinput required-entry" value="" name="bank_acc" id="bank_acc" maxlength="16"> </li>
+                    <!--<li><label for="currency_code">Currency Code</label>
+                    <input type="text" class=" input-text" value="" name="currency_code" id="currency_code"> </li>-->
+                    <li><label for="terms"><a href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/supplier-agreement.pdf" target="__blank">Terms & Conditions</a><span class="required">*</span></label>
+                
+                	<!--<textarea class=" textarea" cols="15" rows="2" style="width:280px; height:100px;" readonly="readonly" id="termstexts">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</textarea>-->
+                    <!--<a href="javascript:void(0);" onclick="window.open('<?php //echo $this->getUrl('terms');?>','Terms & Condition','width=1024, height=768');">Terms & Condition</a>-->
+                    <input type="checkbox"  value="1" name="terms" id="terms" class="required-entry"><span id="termserrMsg" class="agreed">I Agree</span>  </li>
+                
+                   <button type="submit" class="button" title="<?php echo $this->__('Submit') ?>" name="send" id="send2"><span><?php echo $this->__('Submit') ?></span></button>
+                </ul>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+
+<?php if($this->getLayout()->createBlock('cms/block')->setBlockId('cms_right_nav')->toHtml()) { ?>
+    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('cms_right_nav')->toHtml(); ?>
+<?php } ?>
+
+<script type="text/javascript">
+    //<![CDATA[
+        var dataForm = new VarienForm('becameaseller', true);
+    //]]>
+</script>
+<script type="text/javascript">
+function isValidEmailAddress(emailAddress) {
+    var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
+    // alert( pattern.test(emailAddress) );
+    return pattern.test(emailAddress);
+};
+jQuery('#seller_submit').click(function(e){
+	//alert('data');
+	e.preventDefault;
+	hasErr = false;
+	jQuery('.requiredinput').css('border','1px solid #e6e6e6');
+	jQuery('#termserrMsg').html('');
+	jQuery('.requiredinput').each(function(){
+		var v = jQuery(this).val();
+		if(!jQuery(this).hasClass('validate-check')){
+			if(!v){
+				hasErr = true;
+				jQuery(this).css('border','1px solid #ff0000');
+			}else{
+				if(jQuery(this).hasClass('validate-number')){
+					if(!jQuery.isNumeric(v)){
+						hasErr = true;
+						jQuery(this).css('border','1px solid #ff0000');
+					}
+				}
+				if(jQuery(this).hasClass('validate-email')){
+					if(!isValidEmailAddress(v)){
+						hasErr = true;
+						jQuery(this).css('border','1px solid #ff0000');
+					}
+				}
+			}
+		}else{
+			if(!jQuery(this).is(':checked')){
+				hasErr = true;
+				jQuery('#termserrMsg').html('Terms & Conditions should be accepted');
+			}
+		}
+	});
+	if(!hasErr){
+		jQuery.ajax({
+			url:jQuery('#becameaseller').attr('action'),
+			type:'POST',
+			data:jQuery('#becameaseller').serialize(),
+			success:function(d){
+				if(jQuery.trim(d) == 'success'){
+					//alert('hello');
+					//jQuery('#becameaseller').hide();
+					//alert('deal');
+					jQuery("#becameaseller").trigger('reset');
+				jQuery( "#supplier_sumit" ).trigger( "click" );
+				}
+			}
+		});
+	}
+});
+</script>
