@@ -7,4 +7,4 @@ for d in */; do
   git -C $localPATH/$d checkout master   # checkout master in different directory
   git -C $localPATH/$d status            # run git status
   echo -e '\n'
-done
+done.
