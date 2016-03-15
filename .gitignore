@@ -1,4 +1,5 @@
 /etc
 /add.txt
-app/etc/
+app/etc/repo
+app/etc/local1.xml
 Prod1_Local.xml
