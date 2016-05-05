@@ -1,0 +1,142 @@
+{
+	"http_code": 200,
+	"http_message": "Ok, Success",
+	"status": 1,
+	"parameters": {
+		"Block_Brick_works": {
+			"Solid blocks": {
+				"size": {
+					"8 solid concrete block": {
+						"h1_mm": "400",
+						"l1_mm": "200",
+						"b1_mm": "200",
+						"h1_inch": "16",
+						"li_inch": "8",
+						"bi_inch": "8"
+					},
+					"6 solid concrete block": {
+						"h1_mm": "400",
+						"l1_mm": "150",
+						"b1_mm": "200",
+						"h1_inch": "16",
+						"li_inch": "6",
+						"bi_inch": "8"
+					},
+					"4 solid concrete block": {
+						"h1_mm": "400",
+						"l1_mm": "100",
+						"b1_mm": "200",
+						"h1_inch": "16",
+						"li_inch": "4",
+						"bi_inch": "8"
+					}
+				},
+				"coeff": {
+					"no_of_blocks": "12.50",
+					"cement_required": "0.15",
+					"sand": "0.95"
+				}
+			},
+			"AAC light weight block": {
+				"size": {
+					"8 AAC light weight block": {
+						"h1_mm": "600",
+						"l1_mm": "200",
+						"b1_mm": "200",
+						"h1_inch": "24",
+						"li_inch": "8",
+						"b1_inch": "8"
+					},
+					"6 AAC light weight block": {
+						"h1_mm": "600",
+						"l1_mm": "150",
+						"b1_mm": "200",
+						"h1_inch": "24",
+						"li_inch": "6",
+						"b1_inch": "8"
+					},
+					"4 AAC light weight block": {
+						"h1_mm": "600",
+						"l1_mm": "100",
+						"b1_mm": "200",
+						"h1_inch": "24",
+						"li_inch": "4",
+						"b1_inch": "8"
+					}
+				},
+				"coeff": {
+					"no_of_blocks": "8.5",
+					"cement_required": "0.11",
+					"sand": "0.85"
+				}
+			},
+			"Porotherm clay block": {
+				"size": {
+					"8 Porotherm clay block": {
+						"h1_mm": "400",
+						"l1_mm": "200",
+						"b1_mm": "200",
+						"h1_inch": "16",
+						"li_inch": "8",
+						"b1_inch": "8"
+					},
+					"6 Porotherm clay block": {
+						"h1_mm": "400",
+						"l1_mm": "150",
+						"b1_mm": "200",
+						"h1_inch": "16",
+						"li_inch": "6",
+						"b1_inch": "8"
+					},
+					"4 Porotherm clay block": {
+						"h1_mm": "400",
+						"l1_mm": "100",
+						"b1_mm": "200",
+						"h1_inch": "16",
+						"li_inch": "4",
+						"b1_inch": "8"
+					}
+				},
+				"coeff": {
+					"no_of_blocks": "12.5",
+					"cement_required": "0.12",
+					"sand": "0.9"
+				}
+			},
+			"Brick work": {
+				"size": {
+					"clay table mould brick": {
+						"h1_mm": "230",
+						"l1_mm": "115",
+						"b1_mm": "75",
+						"h1_inch": "9",
+						"li_inch": "4",
+						"b1_inch": "3"
+					}
+				},
+				"coeff": {
+					"no_of_blocks": "500.00",
+					"cement_required": "1.25",
+					"sand": "9.00"
+				}
+			},
+			"Half brick work": {
+				"size": {
+					"clay table mould work": {
+						"h1_mm": "230",
+						"l1_mm": "115",
+						"b1_mm": "75",
+						"h1_inch": "9",
+						"li_inch": "4",
+						"b1_inch": "3"
+					}
+				},
+				"coeff": {
+					"no_of_blocks": "60.00",
+					"cement_required": "0.15",
+					"sand": "1.05"
+				}
+			}
+		}
+	}
+}
